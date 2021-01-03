@@ -1,0 +1,19 @@
+{
+  "name": "oshareapi",
+  "version": "0.0.1",
+  "description": "API Endpoint for oShare",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon app.js"
+  },
+  "keywords": [
+    "Simple",
+    "fileshare"
+  ],
+  "author": "miracleio",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0"
+  }
+}
