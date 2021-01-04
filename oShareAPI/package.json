@@ -4,6 +4,7 @@
   "description": "API Endpoint for oShare",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "nodemon app.js"
   },
   "keywords": [
@@ -13,6 +14,7 @@
   "author": "miracleio",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0"
   }
