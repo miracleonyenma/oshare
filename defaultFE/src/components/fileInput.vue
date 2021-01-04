@@ -35,7 +35,7 @@
 
                 const sendFile = async () =>{
                     try{
-                        const res = axios.post('/single-file',
+                        const res = axios.post('http://localhost:3000/single-file',
                             formData,
                             {
                                 headers: {
