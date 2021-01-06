@@ -1,16 +1,20 @@
 <template>
   <div class="main">
     <file-input class="input-comp"></file-input>
+
+    <file-gallery></file-gallery>
   </div>
 </template>
 
 <script>
+import FileGallery from './components/FileGallery.vue';
 import FileInput from "./components/fileInput.vue";
 
 export default {
   name: "App",
   components: {
-    FileInput
+    FileInput,
+    FileGallery
   }
 };
 </script>
