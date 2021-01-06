@@ -15,6 +15,7 @@
     export default {
         data() {
             return {
+                url: process.env.VUE_APP_API_URL,
                 // store file data
                 file: ''
             }
@@ -34,25 +35,42 @@
                 formData.append('file', this.file);
 
                 const sendFile = async () =>{
-                    try{
-                        const res = axios.post('http://localhost:3000/single-file',
-                            formData,
-                            {
-                                headers: {
-                                    'Content-Type': 'multipart/form-data'
-                                }
+                    // try{
+                    //     const res = await axios.post(this.url + '/single-file',
+                    //         formData,
+                    //         {
+                    //             headers: {
+                    //                 'Content-Type': 'multipart/form-data'
+                    //             }
+                    //         }
+                    //     );
+
+                    //     console.log(res.data);
+
+                    // } catch(err){
+                    //     console.error(err, res.data)
+                    // }
+
+                    axios.post(this.url + '/single-file',
+                        formData,
+                        {
+                            headers: {
+                                'Content-Type': 'multipart/form-data'
                             }
-                        );
-
-                        console.log(res.data);
-
-                    } catch(err){
+                        }
+                    ).then(res => {
+                        console.log(res.data)
+                    }, err => {
                         console.error(err)
-                    }
+                    })
                 };
 
                 sendFile();
             }
+        },
+
+        mounted(){
+            console.log(process.env);
         }
     }
 </script>
