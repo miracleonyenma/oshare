@@ -1,7 +1,7 @@
 const cors = require("cors");
 
 const filesRoutes = (app, fs, path) => {
-    app.get("/files", (req, res)=>{
+    app.get("/files", cors(), (req, res)=>{
 
         const getData = (val, callback) => {
             fs.readdir(val, (err, files)=>{
