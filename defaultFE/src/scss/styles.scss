@@ -1,3 +1,19 @@
+// font
+@mixin p($val) {
+    font-size: 12px + ($val * 3);
+}
+
+.p{
+    @for $var from 1 through 8 {
+        &--#{$var}{
+            @include p($var)
+        }
+    }
+}
+
+// values
+$bRadius: 10px;
+
 // colors
 $main: #17c93d;
 $main-trans: rgba(23, 201, 61, 0.12);
@@ -6,7 +22,7 @@ $main-2-trans: rgba(26, 214, 92, 0.12);
 $main-3: #1fe581;
 $main-3-trans: rgba(31, 229, 130, 0.12);
 $dark: #18222b;
-$dark-trans: rgba(24, 34, 43, 0.12);
+$dark-trans: rgba(24, 34, 43, 0.06);
 $bg: #fff;
 $bg-trans: rgba(255, 255, 255, 0.12);
 
@@ -63,20 +79,30 @@ $main: #17c93d;
     }
 }
 
+@mixin glass($color) {
+    backdrop-filter: blur(22px);
+    border: solid 3px transparentize($color, $amount: 0.68);
+    background-clip: padding-box!important;
+    background: transparentize($color, $amount: 0.4);
+    // box-shadow: 10px 10px 22px transparentize($color, $amount: 0.68);
+}
+
 .glass {
     backdrop-filter: blur(22px);
-    border: solid 2px transparent;
-    background-clip: padding-box;
+    border: solid 3px transparent;
+    background-clip: padding-box!important;
 
     @each $color,
     $value in $colorsList {
         &--#{$color} {
             background: transparentize($value, $amount: 0.4);
-            box-shadow: 10px 10px 22px transparentize($value, $amount: 0.88);
+            // box-shadow: 10px 10px 22px transparentize($value, $amount: 0.88);
+            border-color: transparentize($value, $amount: 0.88);
         }
     }
 
     &--bg{
         box-shadow: 10px 10px 22px var(--dark-trans);
+        color: var(--dark);
     }
 }
