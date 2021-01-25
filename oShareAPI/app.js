@@ -2,6 +2,7 @@ const express = require("express");
 const fileupload = require("express-fileupload");
 const fs = require("fs");
 const cors = require("cors");
+const sharp = require("sharp");
 
 // var multer  = require('multer')
 // var upload = multer({ dest: 'uploads/' });
@@ -11,6 +12,7 @@ const path = `${__dirname}/uploads/`;
 const port = `3000`;
 
 const app = express();
+
 
 app.use(express.json());
 
@@ -43,7 +45,7 @@ app.use(fileupload());
 //     res.send(file);
 // })
 
-const routes = require('./routes/routes.js')(app, fs, path);
+const routes = require('./routes/routes.js')(app, express, fs, sharp, path);
 
 
 app.listen(port, () => {
