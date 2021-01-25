@@ -1,9 +1,9 @@
 <template>
   <div class="main bg">
     <div class="bg__bg-cont">
-      <img class="bg__img" src="../public/static/img/IMG_4547.jpg" alt="bg">
+      <img class="bg__img" src="../public/static/img/big-alt.png" alt="bg">
     </div>
-    <file-input class="input-comp" v-bind:url="url" :logs="logs" v-on:update-log="logUpdate" v-on:update-files="files = $event"></file-input>
+    <file-input class="input-comp" v-bind:url="url" :logs="logs" v-on:update-log="logUpdate" v-on:update-files="files = getFiles($event)"></file-input>
 
     <file-gallery class="container" :filesData="files"></file-gallery>
 
@@ -52,6 +52,28 @@ export default {
       // splice(array position, number of elements to remove)
       this.logs.splice(id, 1);
 
+    },
+
+    getFiles(data){
+      let {files, thumbs} = data;
+      let filesData = [];
+
+      console.log(data);
+
+      files.forEach(file => {
+        let filethumb = thumbs.find((thumb)=>{
+          return thumb == file
+        });
+
+        filesData.push({
+          id: this.randomInt(),
+          name: file,
+          url: `${this.url}/static/${file}`,
+          thumb: `${this.url}/static/thumb/${filethumb}`
+        });
+      });
+      console.log(filesData);
+      return filesData
     }
   },
   watch : {
@@ -62,10 +84,13 @@ export default {
   mounted() {
     axios.get(this.url + "/files").then((res) => {
       this.data = res.data;
-      this.files = this.data.data;
-      console.log(this.data.data);
+      // console.log(res.data)
+      // this.files = this.data.data;
+      // console.log(this.data.data);
 
       this.logUpdate(this.data);
+
+      this.files = this.getFiles(res.data.data);
     });
 
   },
@@ -110,10 +135,15 @@ ul{
   &:active {
     transform: scale(0.9);
   }
+
+  &--min{
+    padding: unset;
+  }
+
   outline: none;
   border: none;
   padding: 1em 1.5em;
-  border-radius: $bRadius;
+  border-radius: $bRadius / 2;
   transition: all 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 </style>
