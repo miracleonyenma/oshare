@@ -1,3 +1,8 @@
+//defaults
+span{
+    color: inherit;
+}
+
 // font
 @mixin p($val) {
     font-size: 12px + ($val * 3);
@@ -13,6 +18,8 @@
 
 // values
 $bRadius: 10px;
+$defValpx: 5px;
+$defValem: .5em;
 
 // colors
 $main: #17c93d;
@@ -26,14 +33,13 @@ $dark-trans: rgba(24, 34, 43, 0.06);
 $bg: #fff;
 $bg-trans: rgba(255, 255, 255, 0.12);
 
-$colorsList : ("main" : $main,
+$colorsList : (
+    "main" : $main,
     "main-2" : $main-2,
     "main-3" : $main-3,
     "dark" : $dark,
     "bg" : $bg,
 );
-
-$main: #17c93d;
 
 :root {
     --main: #{$main};
@@ -45,6 +51,14 @@ $main: #17c93d;
     --bg: #{$bg};
 }
 
+$colorsListVar : (
+    "main" : var(--main),
+    "main-2" : var(--main-2),
+    "main-3" : var(--main-3),
+    "dark" : var(--dark),
+    "dark-trans" : var(--dark-trans),
+    "bg" : var(--bg),
+);
 
 
 // layout
@@ -77,6 +91,19 @@ $main: #17c93d;
         }
 
     }
+
+    @each $color,
+    $value in $colorsListVar {
+        &--#{$color} {
+            background: $value;
+            color: var(--bg);
+        }
+    }
+
+    &--bg{
+        color: var(--dark);
+    }
+
 }
 
 @mixin glass($color) {
@@ -104,5 +131,66 @@ $main: #17c93d;
     &--bg{
         box-shadow: 10px 10px 22px var(--dark-trans);
         color: var(--dark);
+    }
+}
+
+@mixin round($val) {
+    border-radius: $bRadius * $val;
+};
+
+.round{
+    @for $val from 0 through 8 {
+        &--#{$val}{
+            @include round($val);
+        }
+    }
+}
+
+@mixin pad($x, $y, $l, $r, $t, $b) {
+    // padding: $x;
+}
+
+.pad{
+    @for $var from 0 through 8 {
+        padding: $var * $defValpx;
+
+        &--t-#{$var}{
+            padding-top: $var * $defValpx;
+
+            &-em{
+                padding-top: $var * $defValem;
+            }
+        }
+
+        &--b-#{$var}{
+            padding-bottom: $var * $defValpx;
+
+            &-em{
+                padding-bottom: $var * $defValem;
+            }
+
+        }
+
+        &--y-#{$var}{
+            padding-top: $var * $defValpx;
+            padding-bottom: $var * $defValpx;
+
+            &-em{
+                padding-top: $var * $defValem;
+                padding-bottom: $var * $defValem;
+            }
+
+        }
+
+        &--x-#{$var}{
+            padding-left: $var * $defValpx;
+            padding-right: $var * $defValpx;
+
+            &-em{
+                padding-left: $var * $defValem;
+                padding-right: $var * $defValem;
+            }
+
+        }
     }
 }
