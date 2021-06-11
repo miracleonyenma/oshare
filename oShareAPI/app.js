@@ -46,7 +46,7 @@ app.use(fileupload());
 // })
 
 const routes = require('./routes/routes.js')(app, express, fs, sharp, path);
-
+console.log(process.env.PUBLIC);
 
 app.listen(port, () => {
     console.log(`app running on http://localhost:${port}`);

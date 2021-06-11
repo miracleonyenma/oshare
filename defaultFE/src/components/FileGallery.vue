@@ -89,7 +89,8 @@
         }
 
         &__caption {
-            @include p(1)
+            @include p(1);
+			overflow-wrap: anywhere;
         }
 
         &__options {
